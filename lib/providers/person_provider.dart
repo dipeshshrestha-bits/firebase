@@ -8,12 +8,16 @@ class PersonProvider extends ChangeNotifier {
   List<Person> _person = [];
   List<Person> get persons => _person;
 
+  PersonProvider(){
+    fetchPerson();
+  }
+
   Future<void> fetchPerson() async {
     _person = await _services.fetchPerson();
     notifyListeners();
   }
 
-  Future<void> addPerson(String name, int age, String profession) async {
+  Future<bool> addPerson(String name, int age, String profession) async {
     final person = Person(
       id: Uuid().v4(),
       name: name,
@@ -23,5 +27,6 @@ class PersonProvider extends ChangeNotifier {
 
     await _services.addPerson(person);
     notifyListeners();
+    return true;
   }
 }
