@@ -12,4 +12,12 @@ class PersonServices {
     final snapshot =await _collection.get();
     return snapshot.docs.map((data)=>Person.fromJson(data.data())).toList();
   }
+
+  Future<void>deletePerson(String id)async{
+    await _collection.doc(id).delete();
+  }
+
+  Future<void>updatePerson(Person person)async{
+    await _collection.doc(person.id).update(person.toJson());
+  }
 }

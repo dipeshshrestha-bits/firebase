@@ -27,6 +27,23 @@ class PersonProvider extends ChangeNotifier {
 
     await _services.addPerson(person);
     notifyListeners();
+    await fetchPerson();
+    notifyListeners();
     return true;
   }
+
+  Future<bool>updatePerson(Person person)async{
+    await _services.updatePerson(person);
+    notifyListeners();
+    fetchPerson();
+    notifyListeners();
+    return true;
+}
+
+Future<void>deletePerson(String id)async{
+  await _services.deletePerson(id);
+  notifyListeners();
+  await fetchPerson();
+  notifyListeners();
+}
 }
